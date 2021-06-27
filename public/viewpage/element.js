@@ -15,3 +15,8 @@ export const modalSignin = new bootstrap.Modal(document.getElementById('modal-si
 export const modalInfo = new bootstrap.Modal(document.getElementById('modal-info'), {backdrop: 'static'});
 export const modalInfoTitle = document.getElementById('modal-info-title');
 export const modalInfoBody = document.getElementById('modal-info-body');
+
+
+
+//root element
+export const root = document.getElementById('root');
