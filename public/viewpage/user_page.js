@@ -1,11 +1,13 @@
 import * as Element from './element.js'
+import * as Route from '../controller/route.js'
 
 export function addEventListeners(){
     Element.menuUsers.addEventListener('click', async () =>{
-        await users_page();
+        history.pushState(null, null, Route.routePathnames.USER);
+        await user_page();
     })
 }
 
-export async function users_page(){
+export async function user_page(){
     Element.root.innerHTML="<h1>Users Page</h1>"
 }

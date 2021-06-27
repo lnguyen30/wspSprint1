@@ -4,7 +4,9 @@ import * as Purchase from './viewpage/purchase_page.js'
 import * as Cart from './viewpage/cart.js'
 import * as Profile from './viewpage/profile_page.js'
 import * as Products from './viewpage/product_page.js'
-import * as Users from './viewpage/users_page.js'
+import * as Users from './viewpage/user_page.js'
+import * as Route from './controller/route.js'
+
 
 Auth.addEventListeners();
 Home.addEventListeners();
@@ -15,3 +17,16 @@ Products.addEventListeners();
 Users.addEventListeners();
 
 
+window.onload = ()=>{
+    //fetches the url of the page then passes it to the routing function
+    const pathname = window.location.pathname;
+    const hash = window.location.hash;
+    Route.routing(pathname, hash)
+}
+
+window.addEventListener('popstate', e =>{ // updates url after user presses forward or backward 
+    e.preventDefault();
+    const pathname = e.target.location.pathname;
+    const hash = e.target.location.hash;
+    Route.routing(pathname, hash);
+});

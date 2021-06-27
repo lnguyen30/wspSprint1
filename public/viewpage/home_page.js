@@ -1,8 +1,11 @@
 import * as Element from './element.js'
+import * as Route from '../controller/route.js'
+
 
 export function addEventListeners(){
     //when home button is clicked
     Element.menuHome.addEventListener('click', async () =>{
+        history.pushState(null, null, Route.routePathnames.HOME);
         await home_page();
     })
 }
