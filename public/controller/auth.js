@@ -3,6 +3,7 @@ import * as FirebaseController from './firebase_controller.js'
 import * as Constant from '../model/constant.js'
 import * as Util from '../viewpage/util.js'
 import * as Route from './route.js'
+import * as Profile from '../viewpage/profile_page.js'
 
 
 
@@ -41,6 +42,8 @@ export function addEventListeners() {
   //changes state of page based on user signing in/out
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user && Constant.adminEmails.includes(user.email)) {
+
+     await Profile.getAccountInfo(user);  
       //if admins signs in, display the post admins auth buttons
       currentUser = user;
       let elements = document.getElementsByClassName("modal-pre-auth"); //sign in button
@@ -58,6 +61,8 @@ export function addEventListeners() {
         signOutElement[i].style.display = "block";
       }
     } else if (user) {
+      await Profile.getAccountInfo(user);  
+
       //if user signs in
       currentUser = user;
 
