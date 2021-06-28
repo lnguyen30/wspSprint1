@@ -3,7 +3,7 @@ import * as Route from '../controller/route.js'
 
 export function addEventListeners(){
     Element.menuCart.addEventListener('click', async () =>{
-        history.pushState(null, null, Route.routePathnames.CART);
+        history.pushState(null, null, Route.routePathname.CART);
         await cart_page();
         
     })

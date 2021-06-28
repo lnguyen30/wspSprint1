@@ -3,7 +3,7 @@ import * as Route from '../controller/route.js'
 
 export function addEventListeners(){
     Element.menuPurchases.addEventListener('click', async () =>{
-        history.pushState(null, null, Route.routePathnames.PURCHASE);
+        history.pushState(null, null, Route.routePathname.PURCHASE);
         await purchase_page();
     })
 }

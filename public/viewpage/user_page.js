@@ -3,7 +3,7 @@ import * as Route from '../controller/route.js'
 
 export function addEventListeners(){
     Element.menuUsers.addEventListener('click', async () =>{
-        history.pushState(null, null, Route.routePathnames.USER);
+        history.pushState(null, null, Route.routePathname.USER);
         await user_page();
     })
 }

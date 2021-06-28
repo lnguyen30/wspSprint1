@@ -4,7 +4,7 @@ import * as Route from '../controller/route.js'
 export function addEventListeners(){
  //when products is cliced from navbar
     Element.menuProducts.addEventListener('click', async () =>{
-        history.pushState(null, null, Route.routePathnames.PRODUCT);
+        history.pushState(null, null, Route.routePathname.PRODUCT);
        
         await product_page();
     })

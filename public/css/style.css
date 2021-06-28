@@ -22,6 +22,14 @@ li {
     display: none;
 }
 
+.modal-admin-post-auth{
+    display: none;
+}
+
+.modal-user-post-auth{
+    display: none;
+}
+
 input {
     display: block;
     margin: 8px 0;

@@ -6,7 +6,7 @@ import * as Product from '../viewpage/product_page.js'
 import * as User from '../viewpage/user_page.js'
 
 
-export const routePathnames ={
+export const routePathname ={
     HOME: '/',
     PURCHASE: '/purchase',
     PROFILE: '/profile',
@@ -18,12 +18,12 @@ export const routePathnames ={
 
 // routes for url when buttons are clicked and the functions that associate with the route
 export const routes = [
-    {pathname: routePathnames.HOME, page: Home.home_page}, 
-    {pathname: routePathnames.PURCHASE, page: Purchase.purchase_page}, 
-    {pathname: routePathnames.CART, page: Cart.cart_page}, 
-    {pathname: routePathnames.PROFILE, page: Profile.profile_page}, 
-    {pathname: routePathnames.PRODUCT, page: Product.product_page}, 
-    {pathname: routePathnames.USER, page: User.user_page}, 
+    {pathname: routePathname.HOME, page: Home.home_page}, 
+    {pathname: routePathname.PURCHASE, page: Purchase.purchase_page}, 
+    {pathname: routePathname.CART, page: Cart.cart_page}, 
+    {pathname: routePathname.PROFILE, page: Profile.profile_page}, 
+    {pathname: routePathname.PRODUCT, page: Product.product_page}, 
+    {pathname: routePathname.USER, page: User.user_page}, 
 ];
 
 export function routing(pathname, hash){
@@ -33,3 +33,4 @@ export function routing(pathname, hash){
     if(route) route.page();
     else routes[0].page(); //default page
 }
+
