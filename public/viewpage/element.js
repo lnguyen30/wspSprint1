@@ -10,12 +10,17 @@ export const menuProducts = document.getElementById('menu-products');
 
 //forms
 export const formSignin = document.getElementById('form-signin');
+export const formSignupPasswordError = document.getElementById('form-signup-password-error');
+export const formSignup = document.getElementById('form-signup');
 //modal
 export const modalSignin = new bootstrap.Modal(document.getElementById('modal-signin'), {backdrop: 'static'});
 export const modalInfo = new bootstrap.Modal(document.getElementById('modal-info'), {backdrop: 'static'});
 export const modalInfoTitle = document.getElementById('modal-info-title');
 export const modalInfoBody = document.getElementById('modal-info-body');
+export const modalSignup = new bootstrap.Modal(document.getElementById('modal-signup'), {backdrop: 'static'});
 
+
+export const buttonSignup = document.getElementById('button-signup')
 
 
 //root element
