@@ -9,7 +9,7 @@ import * as Auth from '../controller/auth.js'
 //event listeners for profile page
 export function addEventListeners(){
     Element.menuProfile.addEventListener('click', async ()=>{
-        history.pushState(null, null, Route.routePathnames.PROFILE);
+        history.pushState(null, null, Route.routePathname.PROFILE);
 
         await profile_page();
     })
@@ -150,6 +150,9 @@ html += `
             </td>
             <td>
                 <button id="profile-photo-update-button" class="btn btn-outline-danger">Update Photo</button>
+            </td>
+            <td>
+                <button id="update-password-button" class="btn btn-outline-info">Update Password</button>
             </td>
         </tr>
     </table>

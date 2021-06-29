@@ -146,6 +146,33 @@ aria-labelledby="modal-signup-title" aria-hidden="true">
    </div>
  </div>
 
+    <!-- Modal: update password -->
+<div class="modal fade" id="modal-update-password" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="modal-update-password-title" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="modal-update-password-title">Update Password</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form id="form-update-password" method="post">
+             <div>
+                 <input type="password" name="password" placeholder="passord" required minlength="6">
+             </div>
+             <div>
+               <input type="password" name="passwordConfirm" placeholder="passwordConfirm" required minlength="6">
+               <p id="form-update-password-error" style="color: red;"></p>
+             </div>
+             <div>
+                 <button type="submit" class="btn btn-outline-primary">Update</button>
+             </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+
 
 
 
