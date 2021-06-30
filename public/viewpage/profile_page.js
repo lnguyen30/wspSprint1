@@ -300,7 +300,7 @@ html += `
             await FirebaseController.signIn(email, newPassword);
           } catch (e) {
             if (Constant.DEV) console.log(e);
-            Util.info("Sign In Error", JSON.stringify(e), Element.modalUpdatePassword);
+            Util.info("Re-Authentication Error", JSON.stringify(e), Element.modalUpdatePassword);
           }
     })
 }
