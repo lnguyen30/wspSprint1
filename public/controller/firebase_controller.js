@@ -1,5 +1,6 @@
 import { AccountInfo } from '../model/account_info.js';
 import * as Constant from '../model/constant.js'
+import * as Auth from './auth.js'
 
 // calls firebase to sign in user 
 export async function signIn(email, password){
@@ -53,5 +54,18 @@ export async function uploadProfilePhoto (photoFile, imageName){
     //retrieves the photo url assigned by firebase
     const photoURL = await taskSnapShot.ref.getDownloadURL();
     return photoURL;
+}
+
+//updates password for users
+export async function updatePassword(newPassword){
+    //fetches the current user signed in
+    const user = Auth.currentUser
+    //call to firebase to update current user's password
+    await user.updatePassword(newPassword).then(()=>{
+        console.log('update password successful')
+    }, (error)=>{
+        console.log(error);
+    });
+ 
 }
 

@@ -157,11 +157,14 @@ aria-labelledby="modal-update-password-title" aria-hidden="true">
        </div>
        <div class="modal-body">
          <form id="form-update-password" method="post">
+            <div>
+                <input type="password" name="oldPassword" placeholder="Enter Previous Password" required minlength="6">
+            </div>
              <div>
-                 <input type="password" name="password" placeholder="passord" required minlength="6">
+                 <input type="password" name="newPassword" placeholder="New Password" required minlength="6">
              </div>
              <div>
-               <input type="password" name="passwordConfirm" placeholder="passwordConfirm" required minlength="6">
+               <input type="password" name="passwordConfirm" placeholder="Confirm New Password" required minlength="6">
                <p id="form-update-password-error" style="color: red;"></p>
              </div>
              <div>

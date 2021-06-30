@@ -255,7 +255,54 @@ html += `
     }
 
 
-   
+    //update password button event listener from profile page/modal
+   document.getElementById('update-password-button').addEventListener('click', () =>{
+
+        Element.formUpdatePassword.reset();
+        Element.formUpdatePasswordError.innerHTML = '';
+        Element.modalUpdatePassword.show();
+
+    })
+
+    //update password, re-authenticate with old password
+    Element.formUpdatePassword.addEventListener('submit', async e =>{
+        e.preventDefault()
+        const email = Auth.currentUser.email; //users email
+        const oldPassword = e.target.oldPassword.value; //old password of current user
+        const newPassword = e.target.newPassword.value; // new password
+        const passwordConfirm = e.target.passwordConfirm.value; // password confirmation
+        Element.formUpdatePasswordError.innerHTML = '' // error reset
+        if (newPassword != passwordConfirm){
+            Element.formUpdatePasswordError.innerHTML = 'Passwords do not match'
+            return;
+        }
+
+        // //re-authenticates user
+        // try {
+        //     await FirebaseController.signIn(email, oldPassword);
+        //   } catch (e) {
+        //     if (Constant.DEV) console.log(e);
+        //     Util.info("Sign In Error", JSON.stringify(e), Element.modalUpdatePassword);
+        //   }
+
+
+        //updates password to firebasecontroller
+        try{
+            await FirebaseController.updatePassword(newPassword)
+            Util.info('Success', 'Password Updated', Element.modalUpdatePassword)
+        }catch(e){
+            if(Constant.DEV) console.log(e);
+            Util.info('Failed to update password', JSON.stringify(e), Element.modalUpdatePassword);
+        }
+
+         //re-authenticates user
+         try {
+            await FirebaseController.signIn(email, newPassword);
+          } catch (e) {
+            if (Constant.DEV) console.log(e);
+            Util.info("Sign In Error", JSON.stringify(e), Element.modalUpdatePassword);
+          }
+    })
 }
 
 function actionButtons(){
