@@ -11,7 +11,10 @@ export const collectionNames ={
     PURCHASE_HISTORY: 'purchase_history',
     ACCOUNT_INFO: 'account_info',
 }
-
+//folders names to store data/photos
 export const storageFolderNames = {
     PROFILE_PHOTOS: 'profile_photos/',
+    PRODUCT_IMAGES: 'product_images/',
 }
+
+

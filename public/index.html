@@ -177,6 +177,44 @@ aria-labelledby="modal-update-password-title" aria-hidden="true">
  </div>
 
 
+ <!-- Modal: add product -->
+<div class="modal fade" id="modal-add-product" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-add-product-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-add-product-label">Add New Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-add-product">
+            <div>
+              <input type="text" name="name" placeholder="product name">
+              <p id="form-add-product-error-name" class="my-error"></p>
+            </div>
+            <div>
+              <input type="text" name="price" placeholder="price ($)">
+              <p id="form-add-product-error-price" class="my-error"></p>
+            </div>
+            <div>
+              Summary <br>
+              <textarea name="summary"></textarea>
+              <p id="form-add-product-error-summary" class="my-error"></p>
+            </div>
+            <div>
+              <img id="form-add-product-image-tag" style="display: block;"/>
+              <input id="form-add-product-image-button" type="file" value="upload"/>
+              <p id="form-add-product-error-image" class="my-error"></p>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-outline-primary">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
     <div id="root" class="bg-light p-5 m-3"></div>
@@ -186,6 +224,7 @@ aria-labelledby="modal-update-password-title" aria-hidden="true">
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/8.6.2/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.6.2/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.6.1/firebase-functions.js"></script>
     <script defer src="/__/firebase/8.6.2/firebase-storage.js"></script>
 
     <!-- 
