@@ -4,20 +4,21 @@ import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import * as Route from '../controller/route.js'
+import * as Edit from '../controller/edit_product.js'
 
 let imageFile2Upload
 
 export function addEventListeners(){
-    //event listener when Product button is clicked, function is called in app.js
+    //event listener when Product button in navbar is clicked, function is called from app.js
     Element.menuProducts.addEventListener('click', async ()=>{
-        history.pushState(null, null, Route.routePathname.PRODUCTS) //nav history
+        history.pushState(null, null, Route.routePathname.PRODUCTS)
         const button = Element.menuProducts;
         const label = Util.disableButton(button);
         await product_page();
        // await Util.sleep(1000);
         Util.enableButton(button, label);
     });
-
+    //event listener when add product form/modal is submitted
     Element.formAddProduct.form.addEventListener('submit', async e =>{
         e.preventDefault();
         //disables button after clicked
@@ -30,7 +31,7 @@ export function addEventListeners(){
        //re-enables button after function is finished
        Util.enableButton(button, label)
     })
-
+    //event listener for new product image
     Element.formAddProduct.imageButton.addEventListener('change', e=>{
         imageFile2Upload = e.target.files[0]; // form file attribute at index 0
         //if image is null, dont proceed
@@ -84,6 +85,38 @@ export async function product_page(){
         //triggers the add product modal to page
         Element.modalAddProduct.show();
     })
+
+    //disables button once edit has been submitted, then calls edit_product function
+    // gets the element by the class name
+    const editForms = document.getElementsByClassName('form-edit-product');
+    for(let i = 0; i < editForms.length; i++){
+        editForms[i].addEventListener('submit', async e=>{
+            e.preventDefault();
+            const button = e.target.getElementsByTagName('button')[0];
+            const label = Util.disableButton(button)
+            //form's docId is passed to edit_product function from card
+            await Edit.edit_product(e.target.docId.value)
+            //enables button again
+            Util.enableButton(button, label)
+        })
+    }
+
+    //disables button once delete has been pressed, then calls delete_product function
+    const deleteForms = document.getElementsByClassName('form-delete-product');
+    for(let i = 0; i < deleteForms.length; i++){
+        deleteForms[i].addEventListener('submit', async e =>{
+            e.preventDefault();
+            //confirmation to delete product
+            if(!window.confirm("Press OK to delete")) return;
+            //retrieves the element by tag name of the card form
+            const button = e.target.getElementsByTagName('button')[0];
+            const label = Util.disableButton(button);
+            //passes deleted product by the docId and imageName to firebase controller
+            await Edit.delete_product(e.target.docId.value, e.target.imageName.value);
+            Util.enableButton(button, label);
+        })
+    }
+
 }
 
 //addes image and product info to firebase
@@ -120,15 +153,25 @@ async function addNewProduct(form){
     }
 }
 
-//displays each product in each 
+//displays each product in each row
 function buildProductCard(product){
     return `
-    <div class="card" style="width: 18rem; display: inline-block">
+    <div id="card-${product.docId}" class="card" style="width: 18rem; display: inline-block">
         <img src="${product.imageURL}" class="card-img-top">
         <div class="card-body">
-        <h5 class="card-title">${product.name}</h5>
-        <p class="card-text">$ ${product.price}<br>${product.summary}</p>
+            <h5 class="card-title">${product.name}</h5>
+            <p class="card-text">$ ${product.price}<br>${product.summary}</p>
         </div>
+        <form class="form-edit-product float-start" method="post">
+            <input type="hidden" name="docId" value="${product.docId}">
+            <button class="btn btn-outline-primary" type="submit">Edit</button>
+        </form>
+        <form class="form-delete-product float-end" method="post">
+            <input type="hidden" name="docId" value="${product.docId}">
+            <input type="hidden" name="imageName" value="${product.imageName}">
+            <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </form>
+
     </div>
     `;
 }

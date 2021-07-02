@@ -24,6 +24,17 @@ export const formAddProduct = {
     errorImage: document.getElementById('form-add-product-error-image'),
 }
 
+export const formEditProduct = {
+    form: document.getElementById('form-edit-product'), 
+    imageTag: document.getElementById('form-edit-product-image-tag'),
+    imageButton: document.getElementById('form-edit-product-image-button'),
+    errorName: document.getElementById('form-edit-product-error-name'),
+    errorPrice: document.getElementById('form-edit-product-error-price'), 
+    errorSummary: document.getElementById('form-edit-product-error-summary'),
+    errorImage: document.getElementById('form-edit-product-error-image'),
+}
+
+
 //modal
 export const modalSignin = new bootstrap.Modal(document.getElementById('modal-signin'), {backdrop: 'static'});
 export const modalInfo = new bootstrap.Modal(document.getElementById('modal-info'), {backdrop: 'static'});
@@ -32,7 +43,7 @@ export const modalInfoBody = document.getElementById('modal-info-body');
 export const modalSignup = new bootstrap.Modal(document.getElementById('modal-signup'), {backdrop: 'static'});
 export const modalUpdatePassword = new bootstrap.Modal(document.getElementById('modal-update-password'), {backdrop: 'static'})
 export const modalAddProduct = new bootstrap.Modal(document.getElementById('modal-add-product'), {backdrop: 'static'})
-//export const modalEditProduct = new bootstrap.Modal(document.getElementById('modal-edit-product'), {backdrop: 'static'})
+export const modalEditProduct = new bootstrap.Modal(document.getElementById('modal-edit-product'), {backdrop: 'static'})
 
 
 export const buttonSignup = document.getElementById('button-signup')
