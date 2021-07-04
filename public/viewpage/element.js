@@ -7,6 +7,8 @@ export const menuCart = document.getElementById('menu-cart');
 export const menuProfile = document.getElementById('menu-profile');
 export const menuUsers = document.getElementById('menu-users');
 export const menuProducts = document.getElementById('menu-products');
+export const shoppingCartCount = document.getElementById('shoppingcart-count'); 
+
 
 //forms
 export const formSignin = document.getElementById('form-signin');

@@ -4,6 +4,7 @@ import * as Constant from '../model/constant.js'
 import * as Util from '../viewpage/util.js'
 import * as Route from './route.js'
 import * as Profile from '../viewpage/profile_page.js'
+import * as Home from '../viewpage/home_page.js'
 
 
 
@@ -67,7 +68,7 @@ export function addEventListeners() {
       currentUser = user;
 
       //when user signs in, shopping cart will be initialized
-      // Home.initShoppingCart();
+      Home.initShoppingCart();
 
       let elements = document.getElementsByClassName("modal-pre-auth");
       let signOutElement = document.getElementsByClassName("modal-post-auth");

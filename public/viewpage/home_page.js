@@ -4,6 +4,7 @@ import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import * as Auth from '../controller/auth.js'
+import { ShoppingCart } from '../model/ShoppingCart.js'
 
 
 //event listeners for home page
@@ -16,8 +17,11 @@ export function addEventListeners(){
     })
 }
 
+//global variable
+export let cart;
 
 export async function home_page(){
+    
     let html = '<h1>Enjoy Shopping</h1>'
     let products;
     try{
@@ -41,6 +45,37 @@ export async function home_page(){
     }
 
     Element.root.innerHTML = html;
+    //event listener for decreasing items
+    const decForms = document.getElementsByClassName('form-dec-qty');
+    for(let i =0; i< decForms.length; i++){
+        decForms[i].addEventListener('submit', e=>{
+            e.preventDefault();
+            //index of the products array from form
+            const p = products[e.target.index.value]
+            //dec p from cart
+            cart.removeItem(p);
+            //updates label amount
+            document.getElementById('qty-' + p.docId).innerHTML = (p.qty == 0 || p.qty == null) ? 'Add' : p.qty;
+            //upates shopping cart count
+            Element.shoppingCartCount.innerHTML = cart.getTotalQty();
+        })
+    }
+
+    //event listener for increasing items
+    const incForms = document.getElementsByClassName('form-inc-qty');
+    for(let i =0; i< incForms.length; i++){
+        incForms[i].addEventListener('submit', e=>{
+            e.preventDefault();
+            //index of the products array from form
+            const p = products[e.target.index.value]
+            //inc p to cart
+            cart.addItem(p);
+            // updates label amount
+            document.getElementById('qty-' + p.docId).innerHTML = p.qty;
+            Element.shoppingCartCount.innerHTML = cart.getTotalQty();
+
+        })
+    }
 }
 
 function buildProductView(product, index){
@@ -71,3 +106,25 @@ function buildProductView(product, index){
     `;
 
  }
+
+
+//user calls cart object when signed in
+export function initShoppingCart(){
+
+    //creates or recreates cart after browser refreshes or user signs out/in
+    const cartString = window.localStorage.getItem('cart-' + Auth.currentUser.uid);
+    //cart will be new 
+    cart = ShoppingCart.parse(cartString);
+    if(!cart || !cart.isValid() || cart.uid != Auth.currentUser.uid){
+        //if invalid, then remove item
+        window.localStorage.removeItem('cart-' + Auth.currentUser.uid);
+        //create new shopping cart
+        cart = new ShoppingCart(Auth.currentUser.uid);
+    }
+
+    //cart = new ShoppingCart(Auth.currentUser.uid);
+
+    //update cart count
+
+    Element.shoppingCartCount.innerHTML = cart.getTotalQty();
+}
