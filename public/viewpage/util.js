@@ -10,7 +10,10 @@ export function info(title, body, closeModal){
 
 }
 
-
+export function currency (money){
+    //converts to USD 
+    return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(money);
+}
 
 //disable button temporarily
 export function disableButton(button){

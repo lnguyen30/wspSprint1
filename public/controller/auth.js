@@ -4,7 +4,7 @@ import * as Constant from '../model/constant.js'
 import * as Util from '../viewpage/util.js'
 import * as Route from './route.js'
 import * as Profile from '../viewpage/profile_page.js'
-
+import * as Home from '../viewpage/home_page.js'
 
 
 export let currentUser;
@@ -60,14 +60,16 @@ export function addEventListeners() {
       for (let i = 0; i < signOutElement.length; i++) {
         signOutElement[i].style.display = "block";
       }
+      Route.routing(window.location.pathname, window.location.hash);
+
     } else if (user) {
       await Profile.getAccountInfo(user);  
 
       //if user signs in
       currentUser = user;
 
-      //when user signs in, shopping cart will be initialized
-      // Home.initShoppingCart();
+       //when user signs in, shopping cart will be initialized
+       Home.initShoppingCart();
 
       let elements = document.getElementsByClassName("modal-pre-auth");
       let signOutElement = document.getElementsByClassName("modal-post-auth");

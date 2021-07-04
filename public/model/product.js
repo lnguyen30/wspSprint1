@@ -1,3 +1,5 @@
+
+
 export class Product{
     constructor(data){
         this.name = data.name.toLowerCase().trim();
@@ -42,4 +44,16 @@ export class Product{
         // returns list of errors
         return errors;
     }
+
+    static isSerializedProduct(p){
+        if(!p.name) return false;
+        if(!p.price || typeof p.price != 'number') return false;
+        if(!p.summary) return false;
+        if(!p.imageName ) return false;
+        if(!p.imageURL || !p.imageURL.includes('https')) return false;
+        if(!p.qty || !Number.isInteger(p.qty)) return false;
+
+        return true;
+    }
+
 }

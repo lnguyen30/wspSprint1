@@ -91,6 +91,26 @@ export async function uploadImage(imageFile, imageName){
     return {imageName, imageURL};
 }
 
+//retrieves all products in firestore
+export async function getProductListHome(){
+    const products = [];
+    //fetches all the products information in firebase that are labeled under products label
+    const snapshot = await firebase.firestore().collection(Constant.collectionNames.PRODUCTS)
+        .orderBy('name')
+        .get();
+
+    snapshot.forEach( doc =>{
+        //constructs each product with doc.data
+        const p = new Product(doc.data())
+        //assign the firestore id to product 
+        p.docId = doc.id;
+        //adds products to list
+        products.push(p);
+    })
+    //returns lists of products
+    return products;
+}
+
 //calls cloud function to retrieve products
 const cf_getProductList = firebase.functions().httpsCallable('cf_getProductList')
 export async function getProductList(){
