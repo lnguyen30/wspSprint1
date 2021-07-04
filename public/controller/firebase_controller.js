@@ -70,6 +70,23 @@ export async function updatePassword(newPassword){
  
 }
 
+export async function getProductListHome(){
+    const products = [];
+    //fetches all the products information in firebase that are labeled under products label
+    const snapshot = await firebase.firestore().collection(Constant.collectionNames.PRODUCTS)
+        .orderBy('name')
+        .get();
+
+    snapshot.forEach( doc =>{
+        //constructs each product with doc.data
+        const p = new Product(doc.data())
+        //assign the firestore id to product 
+        p.docId = doc.id;
+        products.push(p);
+    })
+    return products;
+}
+
 //imports cloud function from to client side
 const cf_addProduct = firebase.functions().httpsCallable('cf_addProduct')
 export async function addProduct(product){
@@ -141,3 +158,4 @@ export async function deleteProduct(docId, imageName){
                 .child(Constant.storageFolderNames.PRODUCT_IMAGES + imageName)
     await ref.delete();
 }
+

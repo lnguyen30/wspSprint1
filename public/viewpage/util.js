@@ -25,3 +25,8 @@ export function enableButton(button, label){
     if(label) button.innerHTML= label;
     button.disabled = false;
 }
+
+export function currency (money){
+    //converts to USD 
+    return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(money);
+}

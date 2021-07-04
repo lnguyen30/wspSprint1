@@ -6,6 +6,8 @@ export class Product{
         this.summary = data.summary.trim();
         this.imageName = data.imageName;
         this.imageURL = data.imageURL;
+        this.qty = Number.isInteger(data.qty) ? data.qty : null;
+
     }
 
     serialize(){
@@ -15,6 +17,8 @@ export class Product{
             summary: this.summary,
             imageName: this.imageName,
             imageURL: this.imageURL,
+            qty: this.qty,
+
         }
     }
     //serializes updated fields
@@ -25,6 +29,8 @@ export class Product{
         if(this.summary) p.summary = this.summary;
         if(this.imageName) p.imageName = this.imageName;
         if(this.imageURL) p.imageURL = this.imageURL;
+        if(!p.qty || !Number.isInteger(p.qty)) return false;
+
         return p;
     }
 
@@ -42,4 +48,16 @@ export class Product{
         // returns list of errors
         return errors;
     }
+
+    static isSerializedProduct(p){
+        if(!p.name) return false;
+        if(!p.price || typeof p.price != 'number') return false;
+        if(!p.summary) return false;
+        if(!p.imageName ) return false;
+        if(!p.imageURL || !p.imageURL.includes('https')) return false;
+        if(!p.qty || !Number.isInteger(p.qty)) return false;
+
+        return true;
+    }
+
 }
