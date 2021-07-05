@@ -29,6 +29,21 @@ export class ShoppingCart {
         this.saveToLocalStorage();
     }
 
+
+    //arranges cart info to store into firebase
+    serialize(timestamp){
+        return {uid: this.uid, items: this.items, timestamp};
+    }
+
+    
+    //takes the json object and rearranges it to create a shopping cart and to display on webpage
+    static deserialize(data){
+        const sc = new ShoppingCart(data.uid);
+        sc.items = data.items;
+        sc.timestamp = data.timestamp;
+        return sc;
+    }
+
     removeItem(product){
         //dec qty 
         //find the product in the shopping cart by the docId and index
@@ -68,15 +83,22 @@ export class ShoppingCart {
         return true;
     }
 
-    //parses through stringify cart
-    static parse(cartString){
-        if(!cartString) return null;
-        const obj = JSON.parse(cartString);
-        // json file to shopping cart obj
-        const sc = new ShoppingCart(obj.uid)
-        sc.items = obj.items
-        return sc;
+     //parses through stringify cart
+     static parse(cartString){
+        try{
+            if(!cartString) return null;
+            const obj = JSON.parse(cartString);
+            // json file to shopping cart obj
+            const sc = new ShoppingCart(obj.uid)
+            sc.items = obj.items
+            return sc;
+        }catch(e){
+            //if parse fails, return null
+            return null;
+        }
+       
     }
+
 
     // get amt from shopping cart
     getTotalQty(){

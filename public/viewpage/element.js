@@ -46,7 +46,9 @@ export const modalSignup = new bootstrap.Modal(document.getElementById('modal-si
 export const modalUpdatePassword = new bootstrap.Modal(document.getElementById('modal-update-password'), {backdrop: 'static'})
 export const modalAddProduct = new bootstrap.Modal(document.getElementById('modal-add-product'), {backdrop: 'static'})
 export const modalEditProduct = new bootstrap.Modal(document.getElementById('modal-edit-product'), {backdrop: 'static'})
-
+export const modalTransactionView = new bootstrap.Modal(document.getElementById('modal-transaction-view'), {backdrop: 'static'});
+export const modalTransactionTitle = document.getElementById('modal-transaction-title');
+export const modalTransactionBody = document.getElementById('modal-transaction-body');
 
 export const buttonSignup = document.getElementById('button-signup')
 //export const buttonUpdatePassword = document.getElementById('update-password-button');
