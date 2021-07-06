@@ -3,6 +3,7 @@ import * as Constant from '../model/constant.js'
 import { Product } from '../model/product.js';
 import * as Auth from './auth.js'
 import { ShoppingCart } from '../model/ShoppingCart.js';
+import { Review } from '../model/review.js';
 
 // calls firebase to sign in user 
 export async function signIn(email, password){
@@ -98,6 +99,7 @@ export async function getPurchaseHistory(uid){
     return carts;
 }
 
+// firebase function to fetch all products for home page
 export async function getProductListHome(){
     const products = [];
     //fetches all the products information in firebase that are labeled under products label
@@ -113,6 +115,44 @@ export async function getProductListHome(){
         products.push(p);
     })
     return products;
+}
+
+//fetches single product for details page
+export async function getOneProduct(productId){
+    const ref = await firebase.firestore()
+            .collection(Constant.collectionNames.PRODUCTS)
+            .doc(productId)
+            .get();
+    if(!ref.exists) return null;
+    const p = new Product(ref.data());
+    p.docId = productId;
+    return p;
+}
+
+//adds review to firebase 
+export async function addReview(review){
+    const ref = await firebase.firestore()
+                .collection(Constant.collectionNames.REVIEWS)
+                .add(review.serialize());
+    return ref.id; //docId of review
+}
+
+//gets all reviews into an array
+export async function getReviewList(productId){
+    const snapShot = await firebase.firestore()
+                .collection(Constant.collectionNames.REVIEWS)
+                .where('productId', '==', productId)
+                .orderBy('timestamp')
+                .get();
+    const reviews = [];
+
+    snapShot.forEach(doc=>{
+        const r = new Review(doc.data())
+        r.docId = doc.id
+        reviews.push(r)
+    })
+
+    return reviews;
 }
 
 //imports cloud function from to client side

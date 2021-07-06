@@ -4,6 +4,7 @@ import * as Cart from '../viewpage/cart.js'
 import * as Profile from '../viewpage/profile_page.js'
 import * as Product from '../viewpage/product_page.js'
 import * as User from '../viewpage/user_page.js'
+import * as Details from '../viewpage/details_page.js'
 
 
 export const routePathname ={
@@ -13,6 +14,7 @@ export const routePathname ={
     CART: '/cart',
     PRODUCT: '/product',
     USER: '/user',
+    DETAILS: '/details'
 
 }
 
@@ -23,14 +25,16 @@ export const routes = [
     {pathname: routePathname.CART, page: Cart.cart_page}, 
     {pathname: routePathname.PROFILE, page: Profile.profile_page}, 
     {pathname: routePathname.PRODUCT, page: Product.product_page}, 
-    {pathname: routePathname.USER, page: User.user_page}, 
+    {pathname: routePathname.USER, page: User.users_page}, 
+    {pathname: routePathname.DETAILS, page: Details.details_page}
 ];
 
 export function routing(pathname, hash){
-    //checks to see if path exists
-    const route = routes.find(r=> r.pathname == pathname);
-    //if route exists find the page function associated to path
-    if(route) route.page();
-    else routes[0].page(); //default page
+    const route = routes.find(r=>r.pathname == pathname);
+    if (route) {
+        if(hash && hash.length > 1) //if hash exists and is greater than 1 including # 
+             route.page(hash.substring(1)); //each page will have hash value
+        else route.page();
+    }else routes[0].page();
 }
 

@@ -5,6 +5,7 @@ import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import * as Auth from '../controller/auth.js'
 import { ShoppingCart } from '../model/ShoppingCart.js'
+import * as DetailsPage from './details_page.js'
 
 
 //event listeners for home page
@@ -44,7 +45,16 @@ export async function home_page(){
         html+= buildProductView(products[i], i)
     }
 
-    Element.root.innerHTML = html;
+    Element.root.innerHTML = html; // products will be rendered at this point
+
+    //checks if any products are added, if not, display message
+    if(products.length == 0){
+        html += '<h4>No Products Currently</h4>'
+        Element.root.innerHTML = html;
+        return;
+    }
+
+
     //event listener for decreasing items
     const decForms = document.getElementsByClassName('form-dec-qty');
     for(let i =0; i< decForms.length; i++){
@@ -76,6 +86,9 @@ export async function home_page(){
 
         })
     }
+
+    DetailsPage.addDetailsButtonListeners(); //event listener for details button
+
 }
 
 function buildProductView(product, index){
@@ -88,6 +101,12 @@ function buildProductView(product, index){
                 ${Util.currency(product.price)}<br>
                 ${product.summary}
             </p>
+            <div>
+                <form method="post" class="product-details-form">
+                    <input type="hidden" name="productId" value="${product.docId}">
+                    <button type="submit" class="btn btn-outline-primary">Details</button> 
+                </form>
+            </div>
             <div class="container pt-3 bg-light ${Auth.currentUser ? 'd-block' : 'd-none'}">
                 <form method="post" class="d-inline form-dec-qty">
                     <input type="hidden" name="index" value="${index}">
