@@ -173,6 +173,10 @@ async function getProductById(data, context){
 
 }
 
+async function getUsersProductByName(){
+    
+}
+
 
 //delete's product with docId and imageName
 async function deleteProduct(docId, context){

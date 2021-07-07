@@ -155,6 +155,25 @@ export async function getReviewList(productId){
     return reviews;
 }
 
+export async function getUsersPurchases(uid){
+    // retrieves purchase history from firebase based on the uid, 
+    //then get() retrieves the info
+    const snapShot = await firebase.firestore().collection(Constant.collectionNames.PURCHASE_HISTORY)
+                    .where('uid', '==', uid)
+                    .get();
+    //empty cart array to store each product
+    const purchases = [];
+    snapShot.forEach(doc =>{
+        //creates shopping cart object with product items
+        const sc = ShoppingCart.deserialize(doc.data());
+        //sc pushed to carts array
+        purchases.push(sc)
+    });
+
+    return purchases;
+    
+}
+
 //imports cloud function from to client side
 const cf_addProduct = firebase.functions().httpsCallable('cf_addProduct')
 export async function addProduct(product){

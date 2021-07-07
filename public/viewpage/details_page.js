@@ -95,6 +95,43 @@ export async function details_page(productId){
 
     //event listener for 'Post Review'
     document.getElementById('button-add-new-review').addEventListener('click', async ()=>{
+
+        //var to check users purchases
+        let purchases;
+
+        // fetches list of purchases from firestore with uid
+        try{
+            purchases = await FirebaseController.getUsersPurchases(Auth.currentUser.uid);
+            //if no list exists
+            if(purchases.length == 0){
+                html += '<h2>No purchase history found</h2>'
+                Element.root.innerHTML = html;
+                return;
+            }
+        }catch(e){
+            if(Constant.DEV) console.log(e);
+            Util.info('Error in getPurchaseHistory', JSON.stringify(e));
+        }
+
+       let productCount = 0; // counts amt of certain products in purchase history
+       //iterates through purchase history
+       for(let i = 0; i<purchases.length; i++){
+            purchases[i].items.forEach(item => {
+                if(product.name == item.name){
+                    productCount++;
+                }
+            })
+       }
+
+       //console.log(productCount) //debugging purposes
+
+       //if user does not have any amt of specific products before purchase, then exit
+       if(productCount == 0){
+           Util.info('Error', 'Cannot review product yet. Please purchase first');
+           return;
+       }
+       
+
         //grabs content of review 
         const content = document.getElementById('textarea-add-new-review').value;
         //grabs info of user 
@@ -148,3 +185,6 @@ function buildReviewView(review){
         <br>
     `;
 }
+
+// use compound queries to search through users purchase history
+//make cloud function to retrieve user's product from purchase history
