@@ -66,7 +66,6 @@ export async function details_page(productId){
         <img src="${product.imageURL}" class="card-img-top">
             <h5 class="card-title">Summary:  ${product.summary}</h5>
             <p class="card-text">Price:  ${Util.currency(product.price)}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
     <br>
@@ -178,7 +177,6 @@ function buildReviewView(review){
                 <form class="form-update-reply ${Auth.currentUser ? 'd-block' : 'd-none'}" method="post">
                     <input type="hidden" name="docId" value=${review.docId}>
                     <input type="hidden" name="email" value=${review.email}>
-                    <button class="btn btn-outline-primary" type="post">Update</button>
                 </form>
             </div>
         </div>
@@ -187,4 +185,4 @@ function buildReviewView(review){
 }
 
 // use compound queries to search through users purchase history
-//make cloud function to retrieve user's product from purchase history
+//make function to retrieve user's product from purchase history
